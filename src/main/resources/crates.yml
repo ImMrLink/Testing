@@ -1,0 +1,19 @@
+crates:
+  daily:
+    display-name: "&aDaily Crate"
+    key:
+      type: both           # physical, virtual, both
+      item: TRIPWIRE_HOOK
+      name: "&aDaily Key"
+      lore: ["&7Use to open a &aDaily Crate"]
+    rewards:
+      - type: economy
+        amount: 250.0
+        weight: 70
+      - type: command
+        command: "give {player} COOKIE 4"
+        weight: 25
+      - type: item
+        material: DIAMOND
+        amount: 1
+        weight: 5

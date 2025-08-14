@@ -1,0 +1,193 @@
+softdepend: [Vault, PlaceholderAPI, Votifier]
+# merged: [Vault, PlaceholderAPI]
+# existing softdepend merged [Vault]
+name: SimpleCore
+main: com.simplecore.SimpleCorePlugin
+version: 1.0.0
+api-version: '1.21'
+authors: [ "You" ]
+description: Essentials-like core commands in a single lightweight plugin.
+commands:
+  afkzonegui:
+    description: Show AFK zone rewards GUI.
+    usage: /afkzonegui [name]
+  crate:
+    description: Crate commands.
+    usage: /crate <open|givekey|keys>
+  togglesb:
+    description: Toggle SimpleCore scoreboard visibility.
+    usage: /togglesb
+    permission: simplecore.scoreboard.toggle
+  voteadd:
+    description: Manually register a vote for a player (if no Votifier).
+    usage: /voteadd <player> [site]
+    permission: simplecore.vote.admin
+  voteparty:
+    description: Vote party controls.
+    usage: /voteparty <status|reset>
+    permission: simplecore.vote.admin
+  multiplier:
+    description: Manage EXP/money multipliers.
+    usage: /multiplier <give|clear|show> ...
+    permission: simplecore.multiplier.admin
+  daily:
+    description: Claim your daily reward.
+    usage: /daily
+    permission: simplecore.daily
+
+  setafkzone:
+    description: Set an AFK zone at your location.
+    usage: /setafkzone <name> <radius> [multiplier]
+    permission: simplecore.afkzone.set
+  delafkzone:
+    description: Delete an AFK zone.
+    usage: /delafkzone <name>
+    permission: simplecore.afkzone.del
+  afkzones:
+    description: List AFK zones.
+    usage: /afkzones
+    permission: simplecore.afkzone.list
+  stafftools:
+    description: Open Staff Tools GUI.
+    usage: /stafftools
+    permission: simplecore.staff.tools
+
+  staffmode:
+    description: Toggle staff mode.
+    usage: /staffmode
+    permission: simplecore.staffmode
+  scgroup:
+    description: Manage SimpleCore groups. /scgroup <set|add|remove|list|reload> ...
+    usage: /scgroup <...>
+    permission: simplecore.groups.admin
+  setjail:
+    description: Set jail location.
+    usage: /setjail
+    permission: simplecore.jail.set
+  unjail:
+    description: Unjail a player.
+    usage: /unjail <player>
+    permission: simplecore.jail.unjail
+  spawn:
+    description: Teleport to spawn.
+    usage: /spawn
+  setspawn:
+    description: Set server spawn.
+    usage: /setspawn
+    permission: simplecore.setspawn
+  home:
+    description: Teleport to a home. /home [name]
+    usage: /home [name]
+  sethome:
+    description: Set a home. /sethome <name>
+    usage: /sethome <name>
+  delhome:
+    description: Delete a home. /delhome <name>
+    usage: /delhome <name>
+  homes:
+    description: List homes.
+    usage: /homes
+  warp:
+    description: Teleport to a warp. /warp <name>
+    usage: /warp <name>
+  setwarp:
+    description: Create or update a warp. /setwarp <name>
+    usage: /setwarp <name>
+    permission: simplecore.setwarp
+  delwarp:
+    description: Delete a warp. /delwarp <name>
+    usage: /delwarp <name>
+    permission: simplecore.delwarp
+  warps:
+    description: List warps.
+    usage: /warps
+  tpa:
+    description: Request to teleport to a player. /tpa <player>
+    usage: /tpa <player>
+  tpaccept:
+    description: Accept a pending TP request.
+    usage: /tpaccept
+  tpdeny:
+    description: Deny a pending TP request.
+    usage: /tpdeny
+  back:
+    description: Return to your previous location.
+    usage: /back
+  msg:
+    description: Send a private message. /msg <player> <message>
+    usage: /msg <player> <message>
+  reply:
+    description: Reply to last private message. /reply <message>
+    usage: /reply <message>
+    aliases: [ r ]
+  balance:
+    description: Check your balance.
+    usage: /balance
+    aliases: [ bal, money ]
+  pay:
+    description: Pay a player. /pay <player> <amount>
+    usage: /pay <player> <amount>
+  heal:
+    description: Heals player.
+    usage: /heal [player]
+    permission: simplecore.heal
+  feed:
+    description: Feeds player.
+    usage: /feed [player]
+    permission: simplecore.feed
+  fly:
+    description: Toggle fly.
+    usage: /fly [player]
+    permission: simplecore.fly
+  god:
+    description: Toggle god mode.
+    usage: /god [player]
+    permission: simplecore.god
+permissions:
+  simplecore.setspawn: {default: op}
+  simplecore.setwarp: {default: op}
+  simplecore.delwarp: {default: op}
+  simplecore.heal: {default: op}
+  simplecore.feed: {default: op}
+  simplecore.fly: {default: op}
+  simplecore.god: {default: op}
+  afk:
+    description: Toggle AFK status.
+    usage: /afk
+  kit:
+    description: Claim a kit. /kit <name>
+    usage: /kit <name>
+  kits:
+    description: Open the Kits GUI (players) or list kits (console).
+    usage: /kits
+  afktop:
+    description: Show top AFK earners today.
+    usage: /afktop [size]
+permissions:
+  simplecore.kit.*:
+    description: Access to all kits
+    default: op
+
+# Kit cooldown tiers (optional):
+# Use permissions like:
+#  - simplecore.kit.cooldown.1800         # global 30m cooldown
+#  - simplecore.kit.starter.cooldown.600  # per-kit 10m cooldown
+permissions:
+  simplecore.crate.admin: {default: op}
+
+  simplecore.crate.use: {default: true}
+  simplecore.crate.admin: {default: op}
+  simplecore.redeem: {default: true}
+  simplecore.kitvoucher.admin: {default: op}
+
+permissions:
+  simplecore.missions.use: {default: true}
+  simplecore.missions.claim: {default: true}
+  simplecore.missions.track: {default: true}
+  simplecore.missions.list: {default: true}
+  simplecore.missions.admin.*: {default: op}
+  simplecore.missions.admin.reload: {default: op}
+  simplecore.missions.admin.give: {default: op}
+  simplecore.missions.admin.progress: {default: op}
+  simplecore.missions.admin.reset: {default: op}
+  simplecore.missions.admin.season: {default: op}

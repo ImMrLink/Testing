@@ -1,0 +1,262 @@
+teleport:
+  tpa-timeout-seconds: 60
+economy:
+  starting-balance: 100.0
+
+AFK:
+  reward-requires-manual: false
+  # If you use custom rewards below, 'reward-per-minute' is ignored for payouts (kept for legacy)
+  use-zone-multiplier-on-economy: true
+  rewards:
+    out-of-zone:
+      - type: economy
+        amount-per-minute: 1.0
+      # - type: command
+      #   command: "give {player} COOKIE 1"
+      #   per-minute: 1
+    in-zone:
+      - type: economy
+        amount-per-minute: 2.0
+      # - type: command
+      #   command: "say {player} is chilling in {zone}!"
+      #   per-minute: 1
+  reward-requires-manual: false
+  zone-multiplier: 2.0   # multiplier to base reward when in an AFK zone
+  auto-seconds: 300   # 5 minutes of inactivity to mark AFK
+  reward-per-minute: 1.0   # money per minute while AFK
+  max-per-session: 120.0   # cap per AFK session
+  broadcast: true
+
+kits:
+  starter:
+    cooldown-seconds: 3600
+    items:
+      - BREAD:8
+      - OAK_PLANKS:16
+      - STONE_SWORD:1
+  tools:
+    cooldown-seconds: 86400
+    items:
+      - STONE_PICKAXE:1
+      - STONE_AXE:1
+      - TORCH:16
+AFK:
+  reward-requires-manual: false
+  # If you use custom rewards below, 'reward-per-minute' is ignored for payouts (kept for legacy)
+  use-zone-multiplier-on-economy: true
+  rewards:
+    out-of-zone:
+      - type: economy
+        amount-per-minute: 1.0
+      # - type: command
+      #   command: "give {player} COOKIE 1"
+      #   per-minute: 1
+    in-zone:
+      - type: economy
+        amount-per-minute: 2.0
+      # - type: command
+      #   command: "say {player} is chilling in {zone}!"
+      #   per-minute: 1
+  reward-requires-manual: false
+  zone-multiplier: 2.0   # multiplier to base reward when in an AFK zone
+  auto-seconds: 300
+  reward-per-minute: 1.0
+  max-per-session: 120.0
+  daily-cap: 500.0
+  leaderboard-size: 10
+  broadcast: true
+
+kits:
+  starter:
+    cooldown-seconds: 3600
+    items:
+      - BREAD:8
+      - OAK_PLANKS:16
+      - STONE_SWORD:1
+  warrior:
+    cooldown-seconds: 7200
+    items:
+      - type: IRON_SWORD
+        amount: 1
+        enchants:
+          sharpness: 2
+          unbreaking: 3
+      - type: COOKED_BEEF
+        amount: 16
+
+ui:
+  kits-gui-title: "&aKits"
+  use-bossbar: true
+  use-titles: true
+
+kits:
+  # You can optionally add 'icon: MATERIAL' to each kit to customize its GUI icon
+  # Example:
+  #  warrior:
+  #    icon: IRON_SWORD
+  #    cooldown-seconds: 7200
+  #    items:
+  #      - type: IRON_SWORD
+  #        amount: 1
+  #        enchants: { sharpness: 2, unbreaking: 3 }
+
+# SimpleCore Groups & Chat
+chat:
+  format: "&7[&r{prefix}&7]&r {name}&7: &f{message}"  # placeholders: {prefix}, {suffix}, {name}, {message}
+groups:
+  default:
+    inherits: []
+    priority: 0
+    prefix: "&7"
+    suffix: ""
+    permissions: [ ]
+  mod:
+    inherits: [default]
+    priority: 10
+    prefix: "&2[Mod]&r "
+    suffix: ""
+    permissions:
+      - simplecore.staffmode
+      - simplecore.punish
+      - simplecore.invsee
+      - simplecore.jail.set
+      - simplecore.jail.unjail
+      - simplecore.kit.*
+  admin:
+    inherits: [mod]
+    priority: 100
+    prefix: "&c[Admin]&r "
+    suffix: ""
+    permissions:
+      - simplecore.*
+
+player-groups: { }  # uuid/name -> group (assigned at runtime; use /scgroup)
+
+punishments:
+  durations-hours: [4, 12, 24, 48]
+
+jail:
+  world: ""     # optional override; default = player's world
+  radius: 5.0   # allowed radius around jail point
+
+# Chat color permissions:
+# - basic: &0-9a-f and &l&o&n&m&k&r if player has simplecore.chat.color.basic (default true)
+# - per-color nodes (optional for strict control): simplecore.chat.color.red, .blue, etc.
+# - wildcard: simplecore.chat.color.*
+chat-colors:
+  allow-hex: true        # enable hex &#RRGGBB tags
+  rainbow-tag: "[rainbow]"   # start tag
+  rainbow-end: "[/rainbow]"  # end tag
+
+logs:
+  enabled: true
+  folder: logs   # inside the plugin data folder
+
+announcer:
+  enabled: true
+  min-seconds: 120
+  max-seconds: 300
+  messages:
+    - "&aJoin our &bDiscord&r: https://example.com/discord"
+    - "&eVote for rewards&r: https://example.com/vote"
+    - "&6Store&r: &ehttps://example.com/store"
+
+scoreboard:
+  enabled: true
+  title: "&aSimpleCore"
+  refresh-ticks: 40
+  lines:
+    - "&7AFK: &f{afk}"
+    - "&7Zone: &f{zone}"
+    - "&7Session Earned: &a${session_econ}"
+    - "&7Today Earned: &a${today_econ}/{daily_cap}"
+
+daily-rewards:
+  enabled: true
+  required-online-hours: 24     # Players can also claim if they've been online this many hours since last claim
+  reset-streak-if-missed-days: 2   # If they go more than this many days without a claim
+  rewards:
+    base:
+      - type: economy
+        amount: 100.0
+      # - type: command
+      #   command: "crate key give {player} daily 1"
+    streak-tiers:
+      "7":
+        - type: economy
+          amount: 500.0
+      "30":
+        - type: economy
+          amount: 2000.0
+
+voting:
+  enabled: true
+  # Rewards per vote (given to the voter)
+  rewards:
+    default:
+      - type: economy
+        amount: 250.0
+    sites:
+      example.com:
+        - type: command
+          command: "say Thanks for voting on example.com, {player}!"
+
+  # (legacy) You can still keep a flat list at voting.rewards for backwards-compat
+      amount: 250.0
+    # - type: command
+    #   command: "crate key give {player} vote 1"
+
+  # Vote Party settings
+  party:
+    enabled: true
+    mode: "daily-count"
+    required: 20
+    window-seconds: 3600
+    rewards:
+      - type: economy
+        amount: 100.0
+    # Site-specific milestone system (independent of party)
+    milestones:
+      sites:
+        minecraftservers.org:
+          - threshold: 25
+            broadcast: "&aMilestone! &e{site}&r reached &b25&r votes today!"
+            rewards:
+              - type: command
+                command: "broadcast &aEveryone gets &e$100 &afor supporting {site}!"
+              - type: economy
+                amount: 100.0
+        planetminecraft.com:
+          - threshold: 50
+            broadcast: "&6Big milestone! {site} hit 50!"
+
+    site-weights: {}
+    enabled: true
+    mode: "daily-count"      # one of: daily-count, time-window, total-count
+    required: 20             # votes required for trigger (per mode)
+    window-seconds: 3600     # only for time-window mode
+    rewards:
+      - type: economy
+        amount: 100.0        # per-player reward when party triggers
+      # - type: command
+      #   command: "broadcast &aVote Party! Everyone gets rewards!"
+
+multipliers:
+  # Permission-based base multipliers are read from nodes like:
+  #  - simplecore.multiplier.exp.2
+  #  - simplecore.multiplier.money.4
+  # Command-granted multipliers stack additively with base (final factor = max of all active for simplicity).
+  default-exp: 1.0
+  default-money: 1.0
+
+# AFK zone visuals (defined per zone in afkzones.yml)
+zone-visuals:
+  holograms-enabled: true
+  bossbar-enabled: true
+
+kit-vouchers:
+  item:
+    material: PAPER
+    name: "&aKit Voucher"
+    lore: ["&7Right-click to redeem &f{kit}&7."]
+  consume-ignores-cooldown: true

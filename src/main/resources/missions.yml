@@ -1,0 +1,98 @@
+settings:
+  reset-times:
+    daily: "00:00"
+    weekly: "MON 00:00"
+  track-playtime-interval-seconds: 60
+
+missions:
+  daily_gather:
+    display-name: "&aDaily Gatherer"
+    scope: daily
+    description: "Mine 128 blocks of any kind."
+    objectives:
+      - type: break:#any
+        amount: 128
+    rewards:
+      - type: economy
+        amount: 300
+      - type: command
+        command: "crate key give {player} daily 1"
+    icon: OAK_LOG
+
+  weekly_miner:
+    display-name: "&bWeekly Miner"
+    scope: weekly
+    description: "Mine 64 diamonds."
+    objectives:
+      - type: break:DIAMOND_ORE
+        amount: 64
+    rewards:
+      - type: economy
+        amount: 5000
+    icon: DIAMOND
+
+  vip_vote_master:
+    display-name: "&6VIP Vote Master"
+    scope: weekly
+    permission: "rank.vip"   # players must have this permission to access
+    description: "Vote on 10 sites this week (VIP mission)."
+    objectives:
+      - type: vote:any
+        amount: 10
+    rewards:
+      - type: cratekey
+        crate: daily
+        amount: 5
+    icon: GOLD_BLOCK
+
+  newcomers_path_1:
+    display-name: "&eWelcome I"
+    scope: onetime
+    chain: newcomers_path
+    order: 1
+    description: "Claim your daily reward and open a Daily crate."
+    objectives:
+      - type: daily_claim:any
+        amount: 1
+      - type: crate_open:daily
+        amount: 1
+    rewards:
+      - type: kit
+        kit: starter
+    icon: PAPER
+    next: newcomers_path_2
+
+  newcomers_path_2:
+    display-name: "&eWelcome II"
+    scope: onetime
+    chain: newcomers_path
+    order: 2
+    description: "Vote once and mine 32 ores."
+    objectives:
+      - type: vote:any
+        amount: 1
+      - type: ore:#ores
+        amount: 32
+    rewards:
+      - type: cratekey
+        crate: daily
+        amount: 2
+    icon: BOOK
+
+
+  repeatable_runner:
+    display-name: "&aRepeatable Runner"
+    scope: repeatable
+    description: "Sprint 1000 blocks. Repeatable every 60 minutes."
+    cooldown-minutes: 60
+    objectives:
+      - type: travel:sprint
+        amount: 1000
+    rewards:
+      - type: economy
+        amount: 300
+    icon: LEATHER_BOOTS
+    visible: true
+    filters:
+      worlds-allow: ["world"]
+      regions-deny: ["spawn"]
